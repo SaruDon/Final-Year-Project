@@ -4,7 +4,7 @@ public class Tyre {
     static String code;
     public static float d1; //inner diameter
     public static float d2; //outer diameter
-    static double thickness;
+    public static double thickness;
     public static float wt;
     static double in_vol;
     static double tol_vol;
