@@ -1,5 +1,7 @@
 package TyreStack;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Stack;
 
 import details.Container;
@@ -16,9 +18,9 @@ public class tyreVerticalStack {
          *    |t1|
          *    |t2|
          */
-        if (!(t1.wt>t2.wt)) {
-            return false;
-        }
+        // if (!(t1.wt>t2.wt)) {
+        //     return false;
+        // }
         if (stackVheight>Container.cHeight) {  //if height of stack exced conatiner conatiner height 
             return false;
         }
@@ -26,14 +28,14 @@ public class tyreVerticalStack {
     }
 
     public static boolean tyreIntyre(Tyre t1, Tyre t2){
-        //considering t2>t1  
+        //considering t1>t2  
         /*
-            {t2{t1}}
+            {t1{t2}}  //big,small
         */      
-        if (t2.d1<t1.d2) {      //d2 is outer diameter  and d1 is inner diameter
+        if (t2.d2>t1.d1) {      //d2 is outer diameter  and d1 is inner diameter
             return false;
         }
-        if (t1.thickness>t2.thickness) {
+        if (t1.thickness<t2.thickness) {
             return false;
         }
         return true;
@@ -46,17 +48,25 @@ public class tyreVerticalStack {
      */
     public static Tyre tyreConsolidation(Tyre t1,Tyre t2){ 
         if (tyreIntyre(t1,t2)) {
-            Tyre newTyre = new Tyre("newTyre", Math.max(t1.d2, t2.d2), Math.min(t1.d1, t2.d1), Math.max(t1.thickness, t2.thickness), 0);
+            double newtyreInner = Math.min(t1.d1, t2.d1);
+            double newTyreOuter =Math.max(t1.d2, t2.d2);
+            double newTyreThiknes = Math.max(t1.thickness, t2.thickness);
+            float newTyreWt= t1.wt+t2.wt;
+            Tyre newTyre = new Tyre("newTyre",newtyreInner , newTyreOuter, newTyreThiknes,newTyreWt);
             return newTyre;  
         }
         return null;
     }
 
+    
+
    /*
     * implementation
     if we have 3 tyres in increasing order t1, t2, t3
-    t1 can fit inside t3 but t2 can't
+    t1 can fit inside t3 but t2 can't   (t2 > t3 > t1)
 
+    
+    
     cheack  contion for tyre in tyre
     sooo... {t3(t1())}  we will consider this tyre as a single unit name it as t4
     t2 can't fit inside t4 so we will stack them
@@ -80,25 +90,30 @@ public class tyreVerticalStack {
 
     public static Stack<Tyre> stackTyre(ArrayList<Tyre> tyre){  //arraylist is list of type tyres that we are going to manage
         Stack<Tyre> stackTyre = new Stack<>();
-        while (tyre.size()!=0) {
-            for (int i = 0; i < tyre.size(); i++) {
-                for (int j = 1; j < tyre.size(); j++) {
-                    if (tyreIntyre(tyre.get(i),tyre.get(j))) {
-                        //by using dp we can get the best fit for the tyreIntyre
-                        tyre.add(tyreConsolidation(tyre.get(i), tyre.get(j)));
-                        tyre.remove(i);
-                        tyre.remove(j);
-                    }
+        while (tyre.size()!=1) {
+            if (tyreIntyre(tyre.get(0),tyre.get(1))){
+                tyre.add(tyreConsolidation(tyre.get(0), tyre.get(1)));
+                tyre.remove(0);
+                tyre.remove(0);
+                Collections.reverse(tyre);           
+            }
+            if (tyre.size()==2) {
+                for (int i = 0; i < tyre.size() && tyre.size()!=0; i++) {
+                    stackTyre.push(tyre.get(i));
+                    stackVheight += tyre.get(i).thickness;
+                    tyre.remove(i);
                 }
             }
-            //sort arraylist accorting to wt and outer diameter so that we can stack them. 
-            for (int i = 0; i < tyre.size(); i++) {
-                stackTyre.push(tyre.get(i));
-                tyre.get(i);
-                stackVheight += Tyre.thickness;
-                tyre.remove(i);
-            }
-        }
+        }        
+      
+        for (int i = 0; i < tyre.size() && tyre.size()!=0; i++) {
+                if(tyreSatckIsValid(tyre.get(i),stackTyre.peek())){
+                    stackTyre.push(tyre.get(i));
+                    stackVheight += tyre.get(i).thickness;
+                    tyre.remove(i);
+                }
+                
+        }        
         return stackTyre;
     }
 }
