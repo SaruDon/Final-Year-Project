@@ -1,0 +1,93 @@
+.ingMainParent {
+    position: relative;
+    top: 11rem;
+}
+
+.ingTextHold {
+    left: 2.5rem;
+    position: relative;
+    gap: 4rem;
+    margin-top: 1rem;
+    text-align: center;
+    
+}
+
+.ingTextHold1 {
+    left: -0.6rem;
+    position: relative;
+    gap: 4rem;
+    margin-top: 1rem;
+    text-align: center;
+    
+}
+
+.ingTextHold2 {
+    left: 1rem;
+    position: relative;
+    gap: 4rem;
+    margin-top: 1rem;
+    text-align: center;
+    
+}
+
+.ingTextHold3 {
+    left: 1.5rem;
+    position: relative;
+    gap: 4rem;
+    margin-top: 1rem;
+    text-align: center;
+    
+}
+
+.ingTextHold4 {
+    left: 1rem;
+    position: relative;
+    gap: 4rem;
+    margin-top: 1rem;
+    text-align: center;
+    
+}
+
+.ingTextHold5 {
+    left: 0.2rem;
+    position: relative;
+    gap: 4rem;
+    margin-top: 1rem;
+    text-align: center;
+    
+}
+
+.ingTextHold6 {
+    left: -0.3rem;
+    position: relative;
+    gap: 4rem;
+    margin-top: 1rem;
+    text-align: center;
+    
+}
+
+.ingImgHold {
+    position: relative;
+    left: 1rem;
+    top: 1rem;
+    gap: 10rem;
+}
+
+.zoom2{
+    /* width: 20px; */
+    gap:10rem;
+    transition: all 400ms ease;
+}
+.zoom1{
+   
+    width: 60px;
+    /* height: auto; */
+    transition: all 400ms ease;
+}
+
+.zoom2:hover{
+    transform: scale(1.2);
+}
+.zoom1:hover{
+    transform: scale(1.2);
+}
